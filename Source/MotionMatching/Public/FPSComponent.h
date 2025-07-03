@@ -26,6 +26,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FPS Monitor")
     bool bEnableFPSLogging = true;
 
+    // MM lub SM – ustawiane z Blueprinta
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FPS Monitor")
+    FString AnimationSystemTag = TEXT("Unknown");
+
 private:
     FString FilePath;
 

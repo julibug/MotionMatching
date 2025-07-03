@@ -24,7 +24,7 @@ void AFPSComponent::BeginPlay()
     FString MapName = GetWorld()->GetMapName();
     MapName = FPaths::GetCleanFilename(MapName); // usuwa prefix typu "UEDPIE_0_"
 
-    FilePath = FPaths::ProjectSavedDir() + "FPSData_" + MapName + "_" + Timestamp + ".csv";
+    FilePath = FPaths::ProjectSavedDir() + "FPSData_" + AnimationSystemTag + "_" + Timestamp + ".csv";
 
     if (!FPlatformFileManager::Get().GetPlatformFile().FileExists(*FilePath))
     {
