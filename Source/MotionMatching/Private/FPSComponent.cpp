@@ -22,9 +22,20 @@ void AFPSComponent::BeginPlay()
 
     FString Timestamp = FDateTime::Now().ToString(TEXT("%Y%m%d_%H%M%S"));
     FString MapName = GetWorld()->GetMapName();
-    MapName = FPaths::GetCleanFilename(MapName); // usuwa prefix typu "UEDPIE_0_"
+    MapName = FPaths::GetCleanFilename(MapName);
 
-    FilePath = FPaths::ProjectSavedDir() + "FPSData_" + AnimationSystemTag + "_" + Timestamp + ".csv";
+    // Nowa czêœæ – Desktop folder
+    FString UserProfile = FPlatformMisc::GetEnvironmentVariable(TEXT("USERPROFILE"));
+    FString DesktopPath = FPaths::Combine(UserProfile, TEXT("Desktop/AnimationTest"));
+
+    IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
+    if (!PlatformFile.DirectoryExists(*DesktopPath))
+    {
+        PlatformFile.CreateDirectoryTree(*DesktopPath);
+    }
+
+    FString FileName = FString::Printf(TEXT("FPSData_%s_%s.csv"), *AnimationSystemTag, *Timestamp);
+    FilePath = FPaths::Combine(DesktopPath, FileName);
 
     if (!FPlatformFileManager::Get().GetPlatformFile().FileExists(*FilePath))
     {
