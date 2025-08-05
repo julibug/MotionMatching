@@ -36,5 +36,5 @@ private:
     void AppendFPSData(float FPS);
 
     float TimeSinceLastWrite = 0.f;
-    float WriteInterval = 0.1f; // zapis co 0.1 sekundy
+    float WriteInterval = 1.0f; 
 };

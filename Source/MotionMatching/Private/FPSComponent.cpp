@@ -73,7 +73,10 @@ void AFPSComponent::AppendFPSData(float FPS)
         return;
     }
     float CurrentTime = GetWorld()->GetTimeSeconds();
-    FString DataLine = FString::Printf(TEXT("%.2f,%.1f\n"), CurrentTime, FPS);
+    FString DataLine = FString::Printf(TEXT("%d,%d\n"),
+        FMath::RoundToInt(CurrentTime),      // czas w sekundach
+        FMath::RoundToInt(FPS)               // FPS
+    );
 
     FFileHelper::SaveStringToFile(DataLine, *FilePath, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
 }
