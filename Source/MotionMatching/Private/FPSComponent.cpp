@@ -39,7 +39,7 @@ void AFPSComponent::BeginPlay()
 
     if (!FPlatformFileManager::Get().GetPlatformFile().FileExists(*FilePath))
     {
-        FString Header = TEXT("Time,FPS\n");
+        FString Header = TEXT("FPS\n");
         FFileHelper::SaveStringToFile(Header, *FilePath);
     }
 }
@@ -72,11 +72,9 @@ void AFPSComponent::AppendFPSData(float FPS)
     {
         return;
     }
-    float CurrentTime = GetWorld()->GetTimeSeconds();
-    FString DataLine = FString::Printf(TEXT("%d,%d\n"),
-        FMath::RoundToInt(CurrentTime),      // czas w sekundach
-        FMath::RoundToInt(FPS)               // FPS
-    );
+    int32 RoundedFPS = FMath::RoundToInt(FPS);
+
+    FString DataLine = FString::Printf(TEXT("%d\n"), RoundedFPS);
 
     FFileHelper::SaveStringToFile(DataLine, *FilePath, FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), FILEWRITE_Append);
 }
